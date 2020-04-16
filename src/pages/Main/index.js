@@ -1,20 +1,18 @@
 import React from 'react';
 
-import {
-  Container,
-  DragonImage,
-  Button,
-  ButtonText,
-  ButtonContainer,
-} from './styles';
+import Container from '../../components/Container';
 
-export default function Main() {
+import { Button, ButtonText, ButtonContainer } from './styles';
+
+export default function Main({ navigation }) {
   return (
-    <Container>
-      <DragonImage resizeMode="center" />
-
+    <Container showDragonsImage={true}>
       <ButtonContainer>
-        <Button>
+        <Button
+          onPress={() => {
+            navigation.navigate('Game');
+          }}
+        >
           <ButtonText>Singleplayer</ButtonText>
         </Button>
 
