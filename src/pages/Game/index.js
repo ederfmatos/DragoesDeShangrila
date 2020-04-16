@@ -11,11 +11,14 @@ import { DragonsContainer, DragonsList, ButtonContainer } from './styles';
 
 export default function Game() {
   const [dragons, setDragons] = useState([]);
-  const [count, setCount] = useState(0);
+  const count = useMemo(
+    () => dragons.filter(dg => dg.visible && dg.selected).length,
+    [dragons],
+  );
 
   const handleDragonClick = useCallback(
-    ({ index, selected }) => {
-      if (count === 3 && !selected) {
+    ({ index, selected, selectable }) => {
+      if ((count === 3 && !selected) || selectable === false) {
         return;
       }
 
@@ -25,11 +28,23 @@ export default function Game() {
           selected: dragon.index === index ? !dragon.selected : dragon.selected,
         })),
       ]);
-
-      setCount(selected ? count - 1 : count + 1);
     },
     [dragons],
   );
+
+  const handleRemoveDragon = useCallback(() => {
+    if (count === 0) {
+      return;
+    }
+
+    setDragons([
+      ...dragons.map(dragon => ({
+        ...dragon,
+        visible: dragon.visible ? !dragon.selected : false,
+        selected: false,
+      })),
+    ]);
+  }, [dragons]);
 
   useEffect(() => {
     const dragonsList = [];
@@ -48,6 +63,7 @@ export default function Game() {
       image: ImageRedDragon,
       selected: false,
       visible: true,
+      selectable: false,
       index: 14,
     });
 
@@ -63,13 +79,14 @@ export default function Game() {
               key={`dragon-item-${dragon.index}`}
               source={dragon.selected ? dragon.imageSelected : dragon.image}
               resizeMode="center"
+              visible={dragon.visible}
               onPress={() => handleDragonClick(dragon)}
             />
           ))}
         </DragonsList>
 
         <ButtonContainer>
-          <Button text="Remover dragão" />
+          <Button onPress={handleRemoveDragon} text="Remover dragão" />
         </ButtonContainer>
       </DragonsContainer>
     </Container>
