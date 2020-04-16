@@ -10,7 +10,7 @@ const Routes = createAppContainer(
     },
     {
       defaultNavigationOptions: {
-        header: null,
+        headerShown: false,
       },
     },
   ),
