@@ -6,7 +6,7 @@ import { Container, Image } from './styles';
 export default function DragonItem({ onPress, visible, ...props }) {
   return (
     <Container underlayColor="#DDDDDD00" onPress={onPress} visible={visible}>
-      <Image {...props} />
+      <Image resizeMode="center" {...props} />
     </Container>
   );
 }

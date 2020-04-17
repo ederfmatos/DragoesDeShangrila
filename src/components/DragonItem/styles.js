@@ -6,7 +6,7 @@ export const Container = styled.TouchableHighlight`
   height: 100px;
   justify-content: center;
   align-items: center;
-  opacity: ${props => (props.visible === false ? 0 : 1)};
+  opacity: ${props => (props.visible ? 1 : 0)};
 `;
 
 export const Image = styled.Image`

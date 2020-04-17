@@ -78,7 +78,6 @@ export default function Game() {
             <DragonItem
               key={`dragon-item-${dragon.index}`}
               source={dragon.selected ? dragon.imageSelected : dragon.image}
-              resizeMode="center"
               visible={dragon.visible}
               onPress={() => handleDragonClick(dragon)}
             />
@@ -86,7 +85,15 @@ export default function Game() {
         </DragonsList>
 
         <ButtonContainer>
-          <Button onPress={handleRemoveDragon} text="Remover dragão" />
+          <Button
+            disabled={count === 0}
+            onPress={handleRemoveDragon}
+            text={
+              count === 0
+                ? 'Selecione até 3 dragões'
+                : `Remover ${count === 1 ? 'Dragão' : 'Dragões'}`
+            }
+          />
         </ButtonContainer>
       </DragonsContainer>
     </Container>

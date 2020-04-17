@@ -8,6 +8,7 @@ export const Container = styled(RectButton)`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  opacity: ${props => (props.disabled ? 0.6 : 1)};
 `;
 
 export const Text = styled.Text`
